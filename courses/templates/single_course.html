@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-5">
+    <!-- Кнопка "Назад" вверху слева -->
+    <div class="mb-4">
+        <a href="{% url 'course_list' %}" class="btn btn-link">
+            <i class="fas fa-arrow-left"></i> Назад к выбору курсов
+        </a>
+    </div>
+
+    <div class="row">
+        <div class="col-md-4">
+            <img src="{{ course.image_url }}" alt="{{ course }}" class="course-image img-fluid">
+        </div>
+        <div class="col-md-8 course-details">
+            <div>
+                <h1 class="mb-4">{{ course.title }}</h1>
+                <p class="course-description">{{ course.description|safe }}</p>
+                <div class="course-details-extended">
+                    {{ course.details|safe }}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <h2 class="mt-5">Темы курса:</h2>
+
+    {% for topic in course.topics.all %}
+        <div class="mt-4">
+            <h3 class="topic-title">{{ topic.title }}</h3>
+            <ul class="list-group">
+                {% for lesson in topic.lessons.all %}
+                    <li class="list-group-item mb-3">{{ lesson.title }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+    {% endfor %}
+</div>
+{% endblock %}
+
