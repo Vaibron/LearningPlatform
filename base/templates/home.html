@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+
+{% block title %}Главная страница{% endblock %}
+
+{% block content %}
+<div class="hero">
+    <img class="course-image" src="https://www.jamk.fi/sites/default/files/2022-03/VLE-1920x1080.jpg"
+         alt="Изображение платформы">
+</div>
+
+<div class="course-details">
+    <h2>О платформе</h2>
+    <p>Мы - команда энтузиастов, стремящихся сделать обучение программированию доступным и увлекательным для всех. Наша
+        платформа предоставляет современные учебные материалы, которые помогут вам освоить основы и развить свои
+        навыки.</p>
+    <div class="story">
+        <p>Наша история началась с идеи поделиться знаниями.</p>
+        <p>Я, Алексей, сейчас учусь программировать, а моя жена, Елизавета, работает системным аналитиком. Мы знаем, как
+            сложно найти качественные обучающие ресурсы, особенно в начале пути. Мы стараемся сделать наш опыт доступным
+            и вдохновляющим для всех желающих развить свои навыки в мире технологий.</p>
+       <div class="team-images row">  <!-- Added row class here -->
+        <div class="col-md-4">  <!-- Adjust column sizes as needed -->
+          <img src="https://i.postimg.cc/cCWHzgFD/2024-10-28-18-46-00.jpg" alt="Аватар создателя" class="rounded-img img-size img-fluid">
+          <p class="team-caption">Это Мы</p>
+        </div>
+        <div class="col-md-4">
+          <img src="https://i.postimg.cc/pXxhG772/2024-10-28-18-46-06.jpg" alt="Аватар песеля" class="rounded-img img-size img-fluid">
+          <p class="team-caption">Пес Оппи</p>
+        </div>
+        <div class="col-md-4">
+          <img src="https://i.postimg.cc/K8p1YYYz/2024-10-28-18-46-10.jpg" alt="Аватар котея" class="rounded-img img-size img-fluid">
+          <p class="team-caption">Кот Феня</p>
+        </div>
+       </div>
+    </div>
+</div>
+
+{% endblock %}
