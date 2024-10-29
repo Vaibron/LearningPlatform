@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ course.title }} - Темы курса</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <style>
+        /* Sidebar styles */
+        #sidebar {
+            transition: transform 0.3s ease;
+            transform: translateX(-100%);
+            position: fixed;
+            height: 100%;
+            z-index: 10;
+            box-shadow: 4px 0 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .hover-area {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 60px;
+            height: 100%;
+            z-index: 20;
+        }
+
+        .pin-button {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background-color: #2D3748;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 20px;
+            color: #fff;
+            padding: 10px;
+            transition: background-color 0.3s;
+        }
+
+        .pin-button.active {
+            background-color: #38A169;
+        }
+
+        .content {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            text-align: center;
+        }
+
+        .course-image {
+            border-radius: 10px;
+        }
+
+        .topic-title {
+            font-size: 1.25rem;
+            font-weight: bold;
+            color: #2D3748;
+        }
+
+        .lesson-title {
+            font-size: 1rem;
+            color: #4A5568;
+        }
+    </style>
+</head>
+<body class="bg-gray-100 font-sans leading-normal tracking-normal">
+
+<div class="flex min-h-screen">
+    <div class="hover-area"></div>
+
+    <div id="sidebar" class="bg-gray-800 text-gray-200 w-64 p-6">
+        <button class="pin-button" id="pinButton"><i class="fas fa-thumbtack"></i></button>
+        
+        <h2 class="text-xl font-semibold mb-6 text-gray-100">Темы курса</h2>
+        <div id="topicsList" class="space-y-4">
+            {% for topic in course.topics.all %}
+                <div class="mt-4">
+                    <h3 class="topic-title">{{ topic.title }}</h3>
+                    <ul class="list-disc mt-2 pl-5">
+                        {% for lesson in topic.lessons.all %}
+                            <li class="lesson-title mb-2">{{ lesson.title }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+
+    <div class="flex-1 content">
+        <div>
+            <h1 class="text-3xl font-bold mb-4 text-gray-800">{{ course.title }}</h1>
+            <img src="{{ course.image_url }}" alt="{{ course.title }}" class="course-image mb-4">
+            <p class="text-gray-600">{{ course.description|safe }}</p>
+        </div>
+    </div>
+</div>
+
+<script>
+    const sidebar = document.getElementById('sidebar');
+    const pinButton = document.getElementById('pinButton');
+    let isPinned = false;
+
+    document.querySelector('.hover-area').addEventListener('mouseenter', function() {
+        if (!isPinned) {
+            sidebar.style.transform = 'translateX(0)';
+        }
+    });
+
+    sidebar.addEventListener('mouseleave', function() {
+        if (!isPinned) {
+            sidebar.style.transform = 'translateX(-100%)';
+        }
+    });
+
+    pinButton.addEventListener('click', function() {
+        isPinned = !isPinned;
+        pinButton.classList.toggle('active', isPinned);
+        sidebar.style.transform = isPinned ? 'translateX(0)' : 'translateX(-100%)';
+    });
+</script>
+
+</body>
+</html>
